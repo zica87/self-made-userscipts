@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
-// @namespace    https://home.gamer.com.tw/a8bc
+// @namespace    https://github.com/zica87/self-made-userscipts
 // @version      1.0
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica

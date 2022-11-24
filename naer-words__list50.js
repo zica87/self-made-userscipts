@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         樂詞網自動選擇顯示 50 筆
-// @namespace    https://github.com/zica87
+// @namespace    https://github.com/zica87/self-made-userscipts
 // @version      0.1.1
 // @description  每頁筆數自動選擇 50
 // @author       zica
