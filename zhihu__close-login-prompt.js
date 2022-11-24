@@ -7,6 +7,7 @@
 // @match        https://zhuanlan.zhihu.com/p/*
 // @match        https://www.zhihu.com/question/*
 // @grant        none
+// @license      GPL-2.0
 // ==/UserScript==
 
 (function() {

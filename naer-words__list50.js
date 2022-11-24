@@ -6,6 +6,7 @@
 // @author       zica
 // @match        https://terms.naer.edu.tw/search/*
 // @grant        none
+// @license      GPL-2.0
 // ==/UserScript==
 
 (function() {
