@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.0.1
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
@@ -32,40 +32,34 @@
         objectFit: 'contain',
     });
 
-    const video_container_observer = new MutationObserver((video_container_elements, video_container_observerInstance) => {
-        video_container_observerInstance.disconnect();
-        const ani_video_observer = new MutationObserver((ani_video_elements, ani_video_observerInstance) => {
-            const ncc = document.getElementsByClassName('video-cover-ncc')[0];
-            if (ncc) {
-                ani_video_observerInstance.disconnect();
-                const dummyVideo = document.getElementById('ani_video_html5_api');
-                if (dummyVideo) {
-                    cover.src = dummyVideo.poster;
-                    const agreeButton = document.getElementById('adult');
-                    cover.onclick = () => {
-                        cover.remove();
-                        agreeButton.click();
-                    };
-                }
-                else {
-                    // 需要年齡驗證
-                    cover.src = get_cover_url();
-                    cover.onclick = () => {
-                        cover.remove();
-                        ncc.hidden = false;
-                    };
-                }
-                ncc.before(cover);
-                ncc.hidden = true;
-            }
-        });
-        ani_video_observer.observe(video_container_elements[0].addedNodes[0], {
-            childList: true,
-            subtree: true
-        });
+    const observer = new MutationObserver((records, observerInstance) => {
+        const ncc = document.getElementsByClassName('video-cover-ncc')[0];
+        if (!ncc) return;
+
+        observerInstance.disconnect();
+        const dummyVideo = document.getElementById('ani_video_html5_api');
+        if (dummyVideo) {
+            cover.src = dummyVideo.poster;
+            const agreeButton = document.getElementById('adult');
+            cover.onclick = () => {
+                cover.remove();
+                agreeButton.click();
+            };
+        }
+        else {
+            // 需要年齡驗證
+            cover.src = get_cover_url();
+            cover.onclick = () => {
+                cover.remove();
+                ncc.hidden = false;
+            };
+        }
+        ncc.before(cover);
+        ncc.hidden = true;
     });
-    video_container_observer.observe(document.getElementById('video-container'), {
-        childList: true
+    observer.observe(document.getElementById('video-container'), {
+        childList: true,
+        subtree: true
     });
 
     function get_cover_url() {
