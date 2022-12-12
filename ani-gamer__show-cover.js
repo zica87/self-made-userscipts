@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0.1
+// @version      1.1
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
@@ -33,8 +33,10 @@
     });
 
     const observer = new MutationObserver((records, observerInstance) => {
-        const ncc = document.getElementsByClassName('video-cover-ncc')[0];
-        if (!ncc) return;
+        const agreeScreen = document.getElementsByClassName('video-cover-ncc')[0] ||
+                            // 付費會員限定
+                            document.getElementsByClassName('video-login')[0];
+        if (!agreeScreen) return;
 
         observerInstance.disconnect();
         const dummyVideo = document.getElementById('ani_video_html5_api');
@@ -48,14 +50,15 @@
         }
         else {
             // 需要年齡驗證
+            // 或是付費會員限定
             cover.src = get_cover_url();
             cover.onclick = () => {
                 cover.remove();
-                ncc.hidden = false;
+                agreeScreen.hidden = false;
             };
         }
-        ncc.before(cover);
-        ncc.hidden = true;
+        agreeScreen.before(cover);
+        agreeScreen.hidden = true;
     });
     observer.observe(document.getElementById('video-container'), {
         childList: true,
