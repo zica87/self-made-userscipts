@@ -5,6 +5,7 @@
 // @description  不顯示題目標籤，按下「顯示標籤」後再顯示
 // @author       zica
 // @match        https://zerojudge.tw/*
+// @license      GPL-2.0
 // @grant        none
 // ==/UserScript==
 
