@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         LeetCode solution article widener
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.1
 // @description  Add a toggle to widen the solution articles to view long code easier.
 // @author       zica
-// @match        https://leetcode.com/problems/*/solutions/*/*/
+// @match        https://leetcode.com/problems/*/solutions/*/*/*
 // @grant        none
 // @license      GPL-2.0
 // ==/UserScript==
