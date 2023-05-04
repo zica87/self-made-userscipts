@@ -1,27 +1,34 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.1
+// @version      1.2
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
-// @grant        none
+// @grant        GM_registerMenuCommand
 // @license      GPL-2.0
 // ==/UserScript==
 
 (function () {
     'use strict';
 
+    GM_registerMenuCommand("顯示橫視覺圖", display_visual);
+
+    // 把下面一行的兩個斜線刪掉並存檔，即可自動顯示橫視覺圖
+    // display_visual();
+
     // 顯示視覺圖
-    const visual = document.createElement('img');
-    visual.src = document.getElementsByName('thumbnail')[0].content;
-    Object.assign(visual.style, {
-        maxHeight: '40rem',
-        float: 'right',
-        margin: '10px 10px auto 10px'
-    });
-    document.getElementsByClassName('anime-title')[0].prepend(visual);
-    document.getElementsByClassName('anime-ad')[0].style.position = 'static';
+    function display_visual(){
+        const visual = document.createElement('img');
+        visual.src = document.getElementsByName('thumbnail')[0].content;
+        Object.assign(visual.style, {
+            maxHeight: '40rem',
+            float: 'right',
+            margin: '10px 10px auto 10px'
+        });
+        document.getElementsByClassName('anime-title')[0].prepend(visual);
+        document.getElementsByClassName('anime-ad')[0].style.position = 'static';
+    }
 
     // 顯示封面
     const cover = document.createElement('img');
