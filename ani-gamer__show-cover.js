@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.2
+// @version      1.2.1
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
@@ -12,9 +12,9 @@
 (function () {
     'use strict';
 
-    GM_registerMenuCommand("顯示橫視覺圖", display_visual);
+    GM_registerMenuCommand("顯示大視覺圖", display_visual);
 
-    // 把下面一行的兩個斜線刪掉並存檔，即可自動顯示橫視覺圖
+    // 把下面一行的兩個斜線刪掉並存檔，即可自動顯示大視覺圖
     // display_visual();
 
     // 顯示視覺圖
@@ -42,7 +42,7 @@
     const observer = new MutationObserver((records, observerInstance) => {
         const agreeScreen = document.getElementsByClassName('video-cover-ncc')[0] ||
                             // 付費會員限定
-                            document.getElementsByClassName('video-login')[0];
+                            document.getElementsByClassName('video-verify')[0];
         if (!agreeScreen) return;
 
         observerInstance.disconnect();
@@ -61,11 +61,11 @@
             cover.src = get_cover_url();
             cover.onclick = () => {
                 cover.remove();
-                agreeScreen.hidden = false;
+                agreeScreen.style.display = "flex";
             };
         }
         agreeScreen.before(cover);
-        agreeScreen.hidden = true;
+        agreeScreen.style.display = "none";
     });
     observer.observe(document.getElementById('video-container'), {
         childList: true,
