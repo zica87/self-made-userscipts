@@ -2,7 +2,7 @@
 // @name         pixiv share helper
 // @name:zh-TW   pixiv 分享助手
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.1
 // @description  Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author       zica
@@ -40,7 +40,6 @@
     container.append(box);
     document.body.prepend(container);
 
-
     function process(originalUrl) {
         const decoded = decodeURIComponent(originalUrl);
         // https://pawoo.net/share?text=お姉さん | 朱雷@Fantia更新中 #pixiv https://www.pixiv.net/artworks/108688782
@@ -55,6 +54,9 @@
             bottom: "5px",
             right: "5px",
             zIndex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
         });
         return container;
     }
@@ -96,7 +98,7 @@
         box.type = "text";
         Object.assign(box.style, {
             opacity: 0,
-            width: "5em"
+            width: "5em",
         });
         function hide() {
             box.style.opacity = 0;
