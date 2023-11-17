@@ -2,7 +2,7 @@
 // @name         pixiv share helper
 // @name:zh-TW   pixiv 分享助手
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.2
+// @version      2.0
 // @description  Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author       zica
@@ -22,25 +22,59 @@
     const [result, set_result] = generate_result();
     const box = generate_box();
 
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(
+            () => {
+                set_result("text copied", "lightgreen");
+            },
+            () => {
+                set_result("no clipboard permission", "pink");
+            }
+        );
+    }
     box.oninput = (e) => {
-        navigator.clipboard
-            .writeText(process(e.target.value))
-            .then(
-                () => {
-                    set_result("text copied", "lightgreen");
-                },
-                () => {
-                    set_result("no clipboard permission", "pink");
-                }
-            )
-            .finally(() => {
-                box.value = "";
-            });
+        copyText(process(e.target.value));
+        box.value = "";
     };
 
     container.append(result);
     container.append(box);
     document.body.prepend(container);
+    let copyButton;
+    let textToShare;
+
+    const observer = new MutationObserver((_, observerInstance) => {
+        const shareOptions = document.getElementsByClassName("sc-1o8nozx-2");
+        const shareToPawoo = shareOptions[shareOptions.length - 1];
+        const rawURL = shareToPawoo?.firstElementChild?.href;
+        if (!rawURL?.startsWith("https://pawoo.net/share?text=")) {
+            return;
+        }
+        if (copyButton === undefined) {
+            copyButton = document.createElement("li");
+            copyButton.classList = shareToPawoo.classList;
+            copyButton.style.cursor = "pointer";
+            const copyButtonText = document.createElement("span");
+            copyButtonText.textContent = "copy text";
+            copyButtonText.style.height = "24px";
+            shareToPawoo.firstElementChild.classList.forEach((currentClass) => {
+                // actually I don't know what it is
+                if (!currentClass.startsWith("gtm")) {
+                    copyButtonText.classList.add(currentClass);
+                }
+            });
+            copyButton.append(copyButtonText);
+        }
+        if (rawURL !== textToShare) {
+            textToShare = process(rawURL);
+            copyButton.onclick = copyText.bind(undefined, textToShare);
+        }
+        shareToPawoo.after(copyButton);
+    });
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
 
     function process(originalUrl) {
         const decoded = decodeURIComponent(originalUrl);
