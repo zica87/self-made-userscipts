@@ -2,7 +2,7 @@
 // @name         pixiv share helper
 // @name:zh-TW   pixiv 分享助手
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      2.0
+// @version      2.1
 // @description  Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author       zica
@@ -20,7 +20,35 @@
 
     const container = generate_container();
     const [result, set_result] = generate_result();
+    const input_wrapper = generate_input_wrapper();
+    const paste_button = generate_paste_button();
     const box = generate_box();
+
+    const prompt_no_permission = set_result.bind(
+        undefined,
+        "no clipboard permission",
+        "pink"
+    );
+
+    paste_button.onclick = () => {
+        navigator.clipboard.readText().then(
+            (text) => {
+                if (text.length === 0) {
+                    set_result("not text", "yellow");
+                } else {
+                    copyText(process(text));
+                }
+            },
+            () => {
+                prompt_no_permission();
+            }
+        );
+    };
+
+    box.oninput = (e) => {
+        copyText(process(e.target.value));
+        box.value = "";
+    };
 
     function copyText(text) {
         navigator.clipboard.writeText(text).then(
@@ -28,18 +56,17 @@
                 set_result("text copied", "lightgreen");
             },
             () => {
-                set_result("no clipboard permission", "pink");
+                prompt_no_permission();
             }
         );
     }
-    box.oninput = (e) => {
-        copyText(process(e.target.value));
-        box.value = "";
-    };
 
     container.append(result);
-    container.append(box);
+    input_wrapper.append(paste_button);
+    input_wrapper.append(box);
+    container.append(input_wrapper);
     document.body.prepend(container);
+
     let copyButton;
     let textToShare;
 
@@ -129,23 +156,43 @@
         return [result_wrapper, set_result];
     }
 
+    function generate_input_wrapper() {
+        const input_wrapper = document.createElement("div");
+
+        function hide() {
+            input_wrapper.style.opacity = 0;
+        }
+        function show() {
+            input_wrapper.style.opacity = 1;
+        }
+
+        hide();
+
+        input_wrapper.addEventListener("mouseover", show);
+        input_wrapper.addEventListener("dragover", show);
+        input_wrapper.addEventListener("mouseleave", hide);
+        input_wrapper.addEventListener("dragleave", hide);
+        return input_wrapper;
+    }
+
+    function generate_paste_button() {
+        const paste_button = document.createElement("input");
+        Object.assign(paste_button, {
+            type: "button",
+            value: "paste",
+        });
+        Object.assign(paste_button.style, {
+            marginRight: "0.5em",
+        });
+        return paste_button;
+    }
+
     function generate_box() {
         const box = document.createElement("input");
         box.type = "text";
         Object.assign(box.style, {
-            opacity: 0,
             width: "5em",
         });
-        function hide() {
-            box.style.opacity = 0;
-        }
-        function show() {
-            box.style.opacity = 1;
-        }
-        box.addEventListener("mouseover", show);
-        box.addEventListener("dragover", show);
-        box.addEventListener("mouseleave", hide);
-        box.addEventListener("dragleave", hide);
         return box;
     }
 })();
