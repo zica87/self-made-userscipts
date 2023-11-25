@@ -2,7 +2,7 @@
 // @name         pixiv share helper
 // @name:zh-TW   pixiv 分享助手
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      2.1
+// @version      2.1.1
 // @description  Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author       zica
@@ -68,7 +68,7 @@
     document.body.prepend(container);
 
     let copyButton;
-    let textToShare;
+    let previousURL;
 
     const observer = new MutationObserver((_, observerInstance) => {
         const shareOptions = document.getElementsByClassName("sc-1o8nozx-2");
@@ -92,9 +92,9 @@
             });
             copyButton.append(copyButtonText);
         }
-        if (rawURL !== textToShare) {
-            textToShare = process(rawURL);
-            copyButton.onclick = copyText.bind(undefined, textToShare);
+        if (rawURL !== previousURL) {
+            previousURL = rawURL;
+            copyButton.onclick = copyText.bind(undefined, process(rawURL));
         }
         shareToPawoo.after(copyButton);
     });
