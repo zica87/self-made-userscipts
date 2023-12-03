@@ -2,7 +2,7 @@
 // @name         Auto start LeetCode timer
 // @name:zh-tw   自動開始 LeetCode 計時器
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.1
+// @version      1.2
 // @description  Automatically start LeetCode official timer.
 // @description:zh-tw 自動開始 LeetCode 官方計時器。
 // @author       zica
@@ -18,9 +18,12 @@
 
     const observer = new MutationObserver((_, observerInstance) => {
         const cur = document.getElementsByClassName("p-2");
-        for (const i of [0, 1]) {
-            if (cur[i]?.classList.contains("flex-none")) {
-                cur[i].click();
+        for (const c of cur) {
+            if (
+                c.classList.contains("flex-none") &&
+                c.dataset?.state !== undefined
+            ) {
+                c.click();
                 observerInstance.disconnect();
             }
         }
