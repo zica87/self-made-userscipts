@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 (function () {
-    'use strict';
+    "use strict";
 
     GM_registerMenuCommand("顯示大視覺圖", display_visual);
 
@@ -18,44 +18,45 @@
     // display_visual();
 
     // 顯示視覺圖
-    function display_visual(){
-        const visual = document.createElement('img');
-        visual.src = document.getElementsByName('thumbnail')[0].content;
+    function display_visual() {
+        const visual = document.createElement("img");
+        visual.src = document.getElementsByName("thumbnail")[0].content;
         Object.assign(visual.style, {
-            maxHeight: '40rem',
-            float: 'right',
-            margin: '10px 10px auto 10px'
+            maxHeight: "40rem",
+            float: "right",
+            margin: "10px 10px auto 10px",
         });
-        document.getElementsByClassName('anime-title')[0].prepend(visual);
-        document.getElementsByClassName('anime-ad')[0].style.position = 'static';
+        document.getElementsByClassName("anime-title")[0].prepend(visual);
+        document.getElementsByClassName("anime-ad")[0].style.position =
+            "static";
     }
 
     // 顯示封面
-    const cover = document.createElement('img');
+    const cover = document.createElement("img");
     Object.assign(cover.style, {
-        width: '100%',
-        maxWidth: 'initial',
-        height: '100%',
-        objectFit: 'contain',
+        width: "100%",
+        maxWidth: "initial",
+        height: "100%",
+        objectFit: "contain",
     });
 
     const observer = new MutationObserver((records, observerInstance) => {
-        const agreeScreen = document.getElementsByClassName('video-cover-ncc')[0] ||
-                            // 付費會員限定
-                            document.getElementsByClassName('video-verify')[0];
+        const agreeScreen =
+            document.getElementsByClassName("video-cover-ncc")[0] ||
+            // 付費會員限定
+            document.getElementsByClassName("video-verify")[0];
         if (!agreeScreen) return;
 
         observerInstance.disconnect();
-        const dummyVideo = document.getElementById('ani_video_html5_api');
+        const dummyVideo = document.getElementById("ani_video_html5_api");
         if (dummyVideo) {
             cover.src = dummyVideo.poster;
-            const agreeButton = document.getElementById('adult');
+            const agreeButton = document.getElementById("adult");
             cover.onclick = () => {
                 cover.remove();
                 agreeButton.click();
             };
-        }
-        else {
+        } else {
             // 需要年齡驗證
             // 或是付費會員限定
             cover.src = get_cover_url();
@@ -67,21 +68,21 @@
         agreeScreen.before(cover);
         agreeScreen.style.display = "none";
     });
-    observer.observe(document.getElementById('video-container'), {
+    observer.observe(document.getElementById("video-container"), {
         childList: true,
-        subtree: true
+        subtree: true,
     });
 
     function get_cover_url() {
-        const allScript = document.getElementsByTagName('script');
+        const allScript = document.getElementsByTagName("script");
         const someScript = allScript[allScript.length - 1].textContent;
         // example:
         // <script>
         // animefun.videoSn = 31725;
         // animefun.poster = 'https://p2.bahamut.com.tw/B/2KU/40/1b6bfb1aa1636596a99ef069081j21w5.JPG';
-        const ed = someScript.search('\';');
+        const ed = someScript.search("';");
         // [18] == '=' (in front of 31725)
-        const st = someScript.slice(18, ed).search('\'');
+        const st = someScript.slice(18, ed).search("'");
         const cover_url = someScript.slice(st + 18 + 1, ed);
         return cover_url;
     }
