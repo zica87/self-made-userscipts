@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.2.1
+// @version      1.2.2
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
@@ -20,7 +20,7 @@
     // 顯示視覺圖
     function display_visual() {
         const visual = document.createElement("img");
-        visual.src = document.getElementsByName("thumbnail")[0].content;
+        visual.src = get_visual_url();
         Object.assign(visual.style, {
             maxHeight: "40rem",
             float: "right",
@@ -39,32 +39,27 @@
         height: "100%",
         objectFit: "contain",
     });
-
+    let old_URL = undefined;
     const observer = new MutationObserver((records, observerInstance) => {
-        const agreeScreen =
-            document.getElementsByClassName("video-cover-ncc")[0] ||
-            // 付費會員限定
-            document.getElementsByClassName("video-verify")[0];
-        if (!agreeScreen) return;
-
-        observerInstance.disconnect();
-        const dummyVideo = document.getElementById("ani_video_html5_api");
-        if (dummyVideo) {
-            cover.src = dummyVideo.poster;
-            const agreeButton = document.getElementById("adult");
-            cover.onclick = () => {
-                cover.remove();
-                agreeButton.click();
-            };
-        } else {
-            // 需要年齡驗證
-            // 或是付費會員限定
-            cover.src = get_cover_url();
-            cover.onclick = () => {
-                cover.remove();
-                agreeScreen.style.display = "flex";
-            };
+        const paid_or_age_restriction =
+            document.getElementsByClassName("video-verify").length !== 0;
+        const agreeScreen = paid_or_age_restriction
+            ? document.getElementsByClassName("video-verify")[0]
+            : document.getElementsByClassName("video-cover-ncc")[0];
+        if (!agreeScreen || window.location.href === old_URL) {
+            return;
         }
+        old_URL = window.location.href;
+        cover.src = get_cover_url();
+        cover.onclick = () => {
+            cover.remove();
+            if (paid_or_age_restriction) {
+                agreeScreen.style.display = "flex";
+            } else {
+                const agreeButton = document.getElementById("adult");
+                agreeButton.click();
+            }
+        };
         agreeScreen.before(cover);
         agreeScreen.style.display = "none";
     });
@@ -74,16 +69,16 @@
     });
 
     function get_cover_url() {
-        const allScript = document.getElementsByTagName("script");
-        const someScript = allScript[allScript.length - 1].textContent;
-        // example:
-        // <script>
-        // animefun.videoSn = 31725;
-        // animefun.poster = 'https://p2.bahamut.com.tw/B/2KU/40/1b6bfb1aa1636596a99ef069081j21w5.JPG';
-        const ed = someScript.search("';");
-        // [18] == '=' (in front of 31725)
-        const st = someScript.slice(18, ed).search("'");
-        const cover_url = someScript.slice(st + 18 + 1, ed);
-        return cover_url;
+        const accurate = document
+            .getElementById("ani_video_html5_api")
+            .getAttribute("poster");
+        if (accurate.length !== 0) {
+            return accurate;
+        }
+        return get_visual_url();
+    }
+
+    function get_visual_url() {
+        return document.getElementsByName("thumbnail")[0].content;
     }
 })();
