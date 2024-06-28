@@ -13,3 +13,4 @@
 |[pixiv share helper](./pixiv__share-helper.js)|[Install](https://greasyfork.org/scripts/477936-pixiv-share-helper)|Convert sharing link to text with format: title \| creator  link|[Example](https://www.pixiv.net/artworks/108688782)|
 |[auto click AtCoder clock once on page load](./atcoder__click-clock.js)|[Install](https://greasyfork.org/scripts/499009-auto-click-atcoder-clock-once-on-page-load)|to hide the clock|[Example](https://atcoder.jp/contests/abc356/tasks/abc356_a)|
 |[CPE 測資網頁新增「複製」按鈕](./cpe__copy-button.js)|[安裝](https://greasyfork.org/scripts/499090-cpe-測資網頁新增-複製-按鈕)|可複製「輸入」或「輸出」|[範例](https://cpe.cse.nsysu.edu.tw/cpe/file/attendance/problemPdf/testData/uva828a.php)|
+|[CPE 歷屆試題網頁顯示難度星級及該題 vjudge 連結](./cpe__difficulty-level.js)|[安裝](https://greasyfork.org/scripts/499014-在-cpe-歷屆試題網頁顯示難度星級及該題-vjudge-連結)|難度星級取自官方資料|[範例](https://cpe.cse.nsysu.edu.tw/cpe/test_data/problems)|
