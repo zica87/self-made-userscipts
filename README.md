@@ -12,3 +12,4 @@
 |[Clean Britannica Dictionary UI](./britannica__cleanUI.js)|[Install](https://greasyfork.org/scripts/473751-clean-britannica-dictionary-ui)|Clear elements at the top and add some buttons.|[Example](https://www.britannica.com/dictionary/example)|
 |[pixiv share helper](./pixiv__share-helper.js)|[Install](https://greasyfork.org/scripts/477936-pixiv-share-helper)|Convert sharing link to text with format: title \| creator  link|[Example](https://www.pixiv.net/artworks/108688782)|
 |[auto click AtCoder clock once on page load](./atcoder__click-clock.js)|[Install](https://greasyfork.org/scripts/499009-auto-click-atcoder-clock-once-on-page-load)|to hide the clock|[Example](https://atcoder.jp/contests/abc356/tasks/abc356_a)|
+|[CPE 測資網頁新增「複製」按鈕](./cpe__copy-button.js)|[安裝](https://greasyfork.org/scripts/499090-cpe-測資網頁新增-複製-按鈕)|可複製「輸入」或「輸出」|[範例](https://cpe.cse.nsysu.edu.tw/cpe/file/attendance/problemPdf/testData/uva828a.php)|
