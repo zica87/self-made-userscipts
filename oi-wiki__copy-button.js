@@ -56,8 +56,9 @@
         });
     }
     function add_buttons() {
-        const codes = document.getElementsByTagName("code");
-        for (const code of codes) {
+        const code_blocks = document.getElementsByClassName("highlight");
+        for (const code_block of code_blocks) {
+            const code = code_block.getElementsByTagName("code")[0];
             const button = document.createElement("button");
             button.onclick = async () => {
                 if (button.textContent[0] == "✅") {
