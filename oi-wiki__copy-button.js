@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OI Wiki 複製程式碼按鈕
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.1
 // @description  程式碼右上角新增「複製」按鈕
 // @author       zica
 // @match        https://oi-wiki.org/*
@@ -19,12 +19,38 @@
 // @match        https://oiwiki.win/*
 // @match        https://oiwiki.com/*
 // @match        https://oi.wiki/*
-// @grant        none
+// @grant        GM_addStyle
 // @license      GPL-3.0
 // ==/UserScript==
 
 (function () {
     "use strict";
+
+    GM_addStyle(`
+.copy-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.copy-mode {
+    opacity: 0.5;
+    cursor: pointer;
+    background-color: gray;
+}
+
+.copy-mode:hover {
+    opacity: 1;
+}
+
+.copied-mode {
+    opacity: 0.5;
+    cursor: unset;
+    background-color: unset;
+}
+    `);
 
     let path = undefined;
     const observer = new MutationObserver(() => {
@@ -41,25 +67,20 @@
 
     function toCopyMode(button) {
         button.textContent = "copy";
-        Object.assign(button.style, {
-            opacity: null,
-            cursor: "pointer",
-            backgroundColor: "gray",
-        });
+        button.classList.add("copy-mode");
+        button.classList.remove("copied-mode");
     }
     function toCopiedMode(button) {
         button.textContent = "✅copied";
-        Object.assign(button.style, {
-            opacity: 0.5,
-            cursor: null,
-            backgroundColor: null,
-        });
+        button.classList.add("copied-mode");
+        button.classList.remove("copy-mode");
     }
     function add_buttons() {
         const code_blocks = document.getElementsByClassName("highlight");
         for (const code_block of code_blocks) {
             const code = code_block.getElementsByTagName("code")[0];
             const button = document.createElement("button");
+            button.className = "copy-button";
             button.onclick = async () => {
                 if (button.textContent[0] == "✅") {
                     return;
@@ -75,13 +96,6 @@
                     console.error(error);
                 }
             };
-            Object.assign(button.style, {
-                position: "absolute",
-                right: "10px",
-                top: "10px",
-                borderRadius: "5px",
-                padding: "3px",
-            });
             toCopyMode(button);
             code.before(button);
         }
