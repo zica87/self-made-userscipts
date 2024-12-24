@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OI Wiki 複製程式碼按鈕
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.1
+// @version      1.1.1
 // @description  程式碼右上角新增「複製」按鈕
 // @author       zica
 // @match        https://oi-wiki.org/*
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    GM_addStyle(`
+    const cssString = `
 .copy-button {
     position: absolute;
     right: 10px;
@@ -50,7 +50,7 @@
     cursor: unset;
     background-color: unset;
 }
-    `);
+`;
 
     let path = undefined;
     const observer = new MutationObserver(() => {
@@ -58,6 +58,7 @@
             return;
         }
         path = window.location.pathname;
+        GM_addStyle(cssString);
         add_buttons();
     });
     observer.observe(document.body, {
