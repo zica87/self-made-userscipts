@@ -15,3 +15,4 @@
 |[CPE 歷屆試題網頁顯示難度星級及該題 vjudge 連結](./cpe__difficulty-level.js)|[安裝](https://greasyfork.org/scripts/499014-在-cpe-歷屆試題網頁顯示難度星級及該題-vjudge-連結)|難度星級取自官方資料|[範例](https://cpe.cse.nsysu.edu.tw/cpe/test_data/problems)|
 |[AtCoder quickly check fastest codes](./atcoder__rankings.js)|[Install](https://greasyfork.org/scripts/499102-atcoder-quickly-check-fastest-codes)|Add buttons on My Submissions page to view the fastest C++ submissions of the problem you submitted.|[Example](https://atcoder.jp/contests/abc352/submissions/me) (or any My Submissions page where you have submissions)|
 |[OI Wiki 複製程式碼按鈕](./oi-wiki__copy-button.js)|[安裝](https://greasyfork.org/scripts/499212-oi-wiki-複製程式碼按鈕)|程式碼右上角新增「複製」按鈕|[範例](https://oi-wiki.org/graph/dfs/#实现)|
+|[CSES copy button](./cses__copy_button.js)|[Install](https://greasyfork.org/scripts/534112-cses-copy-button)|Add copy buttons for input and output|[Example](https://cses.fi/problemset/task/2134/)|
