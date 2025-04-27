@@ -2,15 +2,11 @@
 // @name               pixiv share helper
 // @name:zh-TW         pixiv 分享助手
 // @namespace          https://github.com/zica87/self-made-userscipts
-// @version            2.2
+// @version            2.2.1
 // @description        Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author             zica
-// @match              https://www.pixiv.net/artworks/*
-// @match              https://www.pixiv.net/en/artworks/*
-// @match              https://www.pixiv.net/novel/*
-// @match              https://www.pixiv.net/users/*
-// @match              https://www.pixiv.net/en/users/*
+// @match              https://www.pixiv.net/*
 // @grant              none
 // @license            GPL-3.0
 // ==/UserScript==
