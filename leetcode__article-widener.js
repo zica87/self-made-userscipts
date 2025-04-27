@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LeetCode solution article widener
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      2.0
+// @version      2.0-1
 // @description  Add a toggle to widen the solution articles to view long code easier.
 // @author       zica
 // @match        https://leetcode.com/*
@@ -12,9 +12,11 @@
 (function () {
     "use strict";
 
+    // biome-ignore lint/complexity/useRegexLiterals: escaping '/' reduces readability
     const solutionPageRegEx = new RegExp(
         "https://leetcode.com/problems/.*/solutions/.*/"
     );
+    // biome-ignore lint/complexity/useRegexLiterals:
     const editorialPageRegEx = new RegExp(
         "https://leetcode.com/problems/.*/editorial"
     );

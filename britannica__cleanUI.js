@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Clean Britannica Dictionary UI
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.0-1
 // @description  Clear elements at the top and add some buttons.
 // @author       zica
 // @match        https://www.britannica.com/*
@@ -20,7 +20,6 @@
     add_pronounce_button();
     generate_toggle_all_examples_button();
 
-
     function clear_elements() {
         document.getElementById("wrap_cr_t").remove(); // ad at the top
         // document.getElementById("wrap_c").style.margin = 0; // space on the left & right
@@ -37,6 +36,7 @@
 
     function tweak_elements() {
         // short(in height) search box
+        // prettier-ignore
         document.getElementsByClassName("ld_search_inp")[1].style.padding = "6px";
         // search button position
         Object.assign(document.getElementsByClassName("search_btn")[1].style, {
@@ -62,7 +62,7 @@
     function move_searchbar_and_entries_to_right() {
         const entries = document.getElementById("ld_entries_v2_others_block");
         Object.assign(entries.style, {
-            backgroundColor: "white"
+            backgroundColor: "white",
         });
         const searchbar = document.getElementsByClassName("desktop_top")[0];
         const rightSide = document.getElementById("wrap_cr_br");
@@ -79,6 +79,7 @@
         toolbar.append(entries);
         rightSide.prepend(toolbar);
         Object.assign(rightSide.style, {
+            // prettier-ignore
             height: getComputedStyle(rightSide.parentElement).getPropertyValue("height"),
         });
     }
@@ -97,6 +98,7 @@
             type: "button",
             value: "show all examples",
             onclick: function () {
+                // prettier-ignore
                 for (const wrapper of document.getElementsByClassName("vi_more")) {
                     if (toShow !== wrapper.classList.contains("opened")) {
                         wrapper.firstElementChild.click();
@@ -115,7 +117,7 @@
 
     function add_pronounce_button() {
         for (const icon of document.getElementsByClassName("play_pron")) {
-            const path = icon.dataset.lang.replace('_', '/');
+            const path = icon.dataset.lang.replace("_", "/");
             const file = icon.dataset.file;
             const dir = icon.dataset.dir;
             const url = `https://media.merriam-webster.com/audio/prons/${path}/${fileType}/${dir}/${file}.${fileType}`;
@@ -124,12 +126,12 @@
             const pronounce = document.createElement("input");
             Object.assign(pronounce.style, {
                 borderRadius: "10px",
-                marginLeft: "1em"
+                marginLeft: "1em",
             });
             Object.assign(pronounce, {
                 type: "button",
                 value: "pronounce",
-                onclick: audio.play.bind(audio)
+                onclick: audio.play.bind(audio),
             });
             icon.after(pronounce);
         }

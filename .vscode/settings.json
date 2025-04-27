@@ -1,6 +1,11 @@
 {
     "prettier.tabWidth": 4,
-    "cSpell.userWords": [
-        "Pawoo"
+    "cSpell.userWords": ["Pawoo"],
+    "eslint.useFlatConfig": true,
+    "cSpell.words": [
+        "tampermonkey",
+        "violentmonkey",
+        "userscript",
+        "userscripts"
     ]
 }

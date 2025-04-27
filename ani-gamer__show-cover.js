@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         顯示動畫瘋封面 & 視覺圖
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.2.2
+// @version      1.2.2-1
 // @description  在動畫瘋網站顯示該集封面 & 視覺圖
 // @author       zica
 // @match        https://ani.gamer.com.tw/animeVideo.php?sn=*
@@ -40,7 +40,7 @@
         objectFit: "contain",
     });
     let old_URL = undefined;
-    const observer = new MutationObserver((records, observerInstance) => {
+    const observer = new MutationObserver(() => {
         const paid_or_age_restriction =
             document.getElementsByClassName("video-verify").length !== 0;
         const agreeScreen = paid_or_age_restriction

@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         Auto start LeetCode timer
-// @name:zh-tw   自動開始 LeetCode 計時器
-// @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.2
-// @description  Automatically start LeetCode official timer.
-// @description:zh-tw 自動開始 LeetCode 官方計時器。
-// @author       zica
-// @match        https://leetcode.com/problems/*
-// @grant        none
-// @license      GPL-2.0
+// @name               Auto start LeetCode timer
+// @name:zh-tw         自動開始 LeetCode 計時器
+// @namespace          https://github.com/zica87/self-made-userscipts
+// @version            1.2-1
+// @description        Automatically start LeetCode official timer.
+// @description:zh-tw  自動開始 LeetCode 官方計時器。
+// @author             zica
+// @match              https://leetcode.com/problems/*
+// @grant              none
+// @license            GPL-2.0
 // ==/UserScript==
 
 (function () {

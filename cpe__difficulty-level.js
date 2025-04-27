@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CPE 歷屆試題網頁顯示難度星級及該題 vjudge 連結
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.0-1
 // @description  難度星級取自官方資料
 // @author       zica
 // @match        https://cpe.cse.nsysu.edu.tw/cpe/test_data/problems
@@ -13,13 +13,13 @@
     "use strict";
 
     // place main code above the long mapping
-    // eliminate the trouble to scroll over it to view the main coden
+    // eliminate the trouble to scroll over it to view the main code
     function main_code() {
         const tables = document.getElementsByTagName("tbody");
         for (const table of tables) {
             for (let i = 1; i < table.children.length; ++i) {
                 const td = table.children[i].firstElementChild;
-                if (td.tagName != "TD") {
+                if (td.tagName !== "TD") {
                     continue;
                 }
                 const problem_title = td.firstElementChild;
@@ -28,13 +28,15 @@
                 star.textContent =
                     star_table[number] === undefined
                         ? "❓"
-                        : star_table[number] +
+                        : // biome-ignore lint/style/useTemplate: current one is fine
+                          star_table[number] +
                           " " +
                           "🌟".repeat(star_table[number]);
                 problem_title.before(star);
 
                 const vjudge_a = document.createElement("a");
                 Object.assign(vjudge_a, {
+                    // biome-ignore lint/style/useTemplate: current one is fine
                     href: "https://vjudge.net/problem/UVA-" + number,
                     textContent: "vjudge",
                     target: "_blank",

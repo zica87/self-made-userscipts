@@ -1,18 +1,18 @@
 // ==UserScript==
-// @name         pixiv share helper
-// @name:zh-TW   pixiv 分享助手
-// @namespace    https://github.com/zica87/self-made-userscipts
-// @version      2.1.1
-// @description  Convert sharing link to text with format: title | creator  link
+// @name               pixiv share helper
+// @name:zh-TW         pixiv 分享助手
+// @namespace          https://github.com/zica87/self-made-userscipts
+// @version            2.1.1-1
+// @description        Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
-// @author       zica
-// @match        https://www.pixiv.net/artworks/*
-// @match        https://www.pixiv.net/en/artworks/*
-// @match        https://www.pixiv.net/novel/*
-// @match        https://www.pixiv.net/users/*
-// @match        https://www.pixiv.net/en/users/*
-// @grant        none
-// @license      GPL-3.0
+// @author             zica
+// @match              https://www.pixiv.net/artworks/*
+// @match              https://www.pixiv.net/en/artworks/*
+// @match              https://www.pixiv.net/novel/*
+// @match              https://www.pixiv.net/users/*
+// @match              https://www.pixiv.net/en/users/*
+// @grant              none
+// @license            GPL-3.0
 // ==/UserScript==
 
 (function () {
@@ -70,7 +70,7 @@
     let copyButton;
     let previousURL;
 
-    const observer = new MutationObserver((_, observerInstance) => {
+    const observer = new MutationObserver(() => {
         const shareOptions = document.getElementsByClassName("sc-1o8nozx-2");
         const shareToPawoo = shareOptions[shareOptions.length - 1];
         const rawURL = shareToPawoo?.firstElementChild?.href;
@@ -84,12 +84,13 @@
             const copyButtonText = document.createElement("span");
             copyButtonText.textContent = "copy text";
             copyButtonText.style.height = "24px";
-            shareToPawoo.firstElementChild.classList.forEach((currentClass) => {
+            for (const currentClass of shareToPawoo.firstElementChild
+                .classList) {
                 // actually I don't know what it is
                 if (!currentClass.startsWith("gtm")) {
                     copyButtonText.classList.add(currentClass);
                 }
-            });
+            }
             copyButton.append(copyButtonText);
         }
         if (rawURL !== previousURL) {

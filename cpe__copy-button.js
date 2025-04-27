@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CPE 測資網頁新增「複製」按鈕
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0
+// @version      1.0-1
 // @description  可複製「輸入」或「輸出」
 // @author       zica
 // @match        https://cpe.cse.nsysu.edu.tw/cpe/file/attendance/problemPdf/testData/*
@@ -17,7 +17,8 @@
         const copy_button = document.createElement("button");
         Object.assign(copy_button, {
             type: "button",
-            textContent: "copy " + (i == 0 ? "input" : "output"),
+            // biome-ignore lint/style/useTemplate: current one looks better
+            textContent: "copy " + (i === 0 ? "input" : "output"),
             onclick: () => {
                 navigator.clipboard
                     .writeText(table.getElementsByTagName("pre")[0].textContent)

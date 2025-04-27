@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OI Wiki 複製程式碼按鈕
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.1.1
+// @version      1.1.1-1
 // @description  程式碼右上角新增「複製」按鈕
 // @author       zica
 // @match        https://oi-wiki.org/*
@@ -83,7 +83,7 @@
             const button = document.createElement("button");
             button.className = "copy-button";
             button.onclick = async () => {
-                if (button.textContent[0] == "✅") {
+                if (button.textContent[0] === "✅") {
                     return;
                 }
                 try {
