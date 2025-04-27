@@ -2,7 +2,7 @@
 // @name               pixiv share helper
 // @name:zh-TW         pixiv 分享助手
 // @namespace          https://github.com/zica87/self-made-userscipts
-// @version            2.1.1-1
+// @version            2.2
 // @description        Convert sharing link to text with format: title | creator  link
 // @description:zh-TW  將分享連結轉換為文字，格式：標題 | 作者  連結
 // @author             zica
@@ -69,23 +69,30 @@
 
     let copyButton;
     let previousURL;
+    const buttonId = "pixiv-share-helper";
 
     const observer = new MutationObserver(() => {
-        const shareOptions = document.getElementsByClassName("sc-1o8nozx-2");
-        const shareToPawoo = shareOptions[shareOptions.length - 1];
-        const rawURL = shareToPawoo?.firstElementChild?.href;
+        const pawoo_a = document.querySelector(
+            '[data-gtm-category="gtm-share-by-pawoo-in-detail-click"]'
+        );
+        if (pawoo_a === null || document.getElementById(buttonId) !== null) {
+            return;
+        }
+        const pawoo_li = pawoo_a.parentElement;
+        const rawURL = pawoo_a.href;
         if (!rawURL?.startsWith("https://pawoo.net/share?text=")) {
             return;
         }
         if (copyButton === undefined) {
             copyButton = document.createElement("li");
-            copyButton.classList = shareToPawoo.classList;
+            copyButton.classList = pawoo_li.classList;
+            copyButton.id = buttonId;
             copyButton.style.cursor = "pointer";
+
             const copyButtonText = document.createElement("span");
             copyButtonText.textContent = "copy text";
             copyButtonText.style.height = "24px";
-            for (const currentClass of shareToPawoo.firstElementChild
-                .classList) {
+            for (const currentClass of pawoo_a.classList) {
                 // actually I don't know what it is
                 if (!currentClass.startsWith("gtm")) {
                     copyButtonText.classList.add(currentClass);
@@ -97,7 +104,7 @@
             previousURL = rawURL;
             copyButton.onclick = copyText.bind(undefined, process(rawURL));
         }
-        shareToPawoo.after(copyButton);
+        pawoo_li.after(copyButton);
     });
     observer.observe(document.body, {
         childList: true,
