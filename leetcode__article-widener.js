@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LeetCode solution article widener
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      2.0-2
+// @version      2.1
 // @description  Add a toggle to widen the solution articles to view long code easier.
 // @author       zica
 // @match        https://leetcode.com/*
@@ -46,12 +46,14 @@
         ) {
             return;
         }
-        const topRightToolbar = document.getElementsByClassName("ml-4")[0];
-        if (topRightToolbar === undefined) {
+        const layoutButton = document.getElementById(
+            "qd-layout-manager-btn"
+        )?.parentElement;
+        if (layoutButton === undefined || layoutButton === null) {
             return;
         }
         observerInstance.disconnect();
-        topRightToolbar.prepend(toggle);
+        layoutButton.before(toggle);
     });
     observer.observe(document.body, {
         childList: true,
