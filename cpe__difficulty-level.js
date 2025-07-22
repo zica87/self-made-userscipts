@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CPE 歷屆試題網頁顯示難度星級及該題 vjudge 連結
 // @namespace    https://github.com/zica87/self-made-userscipts
-// @version      1.0-1
+// @version      1.0-2
 // @description  難度星級取自官方資料
 // @author       zica
 // @match        https://cpe.cse.nsysu.edu.tw/cpe/test_data/problems
@@ -28,8 +28,7 @@
                 star.textContent =
                     star_table[number] === undefined
                         ? "❓"
-                        : // biome-ignore lint/style/useTemplate: current one is fine
-                          star_table[number] +
+                        : star_table[number] +
                           " " +
                           "🌟".repeat(star_table[number]);
                 problem_title.before(star);
